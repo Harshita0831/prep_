@@ -26,6 +26,8 @@
 
 class LibraryItem:
     def __init__(self,borrow_days):
+        #constructor
+        ##Encapsulation - _borrow_days is a protected variable
         self._borrow_days = borrow_days
         
     def calculate_borrowcharge(self):
@@ -35,12 +37,15 @@ class LibraryItem:
     
 class Book(LibraryItem):
     def calculate_borrowcharge(self):
+        # Method Overriding
+        # Polymorphism: same method name, different behavio
         return self._borrow_days*10
     
     def item_type(self):
         return "Book"
     
 class Magazine(LibraryItem):
+    #method overriding
     def calculate_borrowcharge(self):
         return self._borrow_days*20
     
@@ -49,9 +54,12 @@ class Magazine(LibraryItem):
 
 class LibraryApp:
     def __init__(self,libraryitem):
+        #constructor
+        #composition
         self.libraryitem = libraryitem
         
     def borrow_details(self):
+        #polymorphism
         itemtype = self.libraryitem.item_type()
         days = self.libraryitem._borrow_days
         charges = self.libraryitem.calculate_borrowcharge()
