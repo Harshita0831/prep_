@@ -12,7 +12,7 @@ import os
 from collections import Counter
 
 # 1. generate random password
-length = 10
+length = 8
 letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 digits = "0123456789"
 symbols = "!@#$%^&*()"
