@@ -1,32 +1,24 @@
 # FINTRACK PRO – CLI FINANCE MANAGER
 
-# add_category        -> add expense category
-# add_expense         -> add new expense
-# update_expense      -> update expense
-# delete_expense      -> delete expense
-# search_by_date      -> search expenses by date
-# category_analytics  -> category wise total spending
-# set_budget          -> set monthly budget
-# budget_alert        -> check if budget exceeded
+# add_category-> add expense category
+# add_expense-> add new expense
+# update_expense-> update expense
+# delete_expense-> delete expense
+# search_by_date-> search expenses by date
+# category_analytics-> category wise total spending
+# set_budget-> set monthly budget
+# budget_alert-> check if budget exceeded
 
 
-# Used to create database connection and write SQL queries
 from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey, text
-
-# Used to define ORM tables and database session
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 
-
-# Creates SQLite database file named fintrack.db
 engine = create_engine("sqlite:///fintrack.db")
 
-# Base class for ORM models
+# Base class
 Base = declarative_base()
 
-# Session class
 Session = sessionmaker(bind=engine)
-
-# Create session object
 session = Session()
 
 
@@ -50,7 +42,7 @@ class Expense(Base):
     amount = Column(Float)
     date = Column(String)
 
-    #link expense to category
+    #link expenses to category
     category_id = Column(Integer, ForeignKey("categories.id"))
 
     # to access category from expense 
