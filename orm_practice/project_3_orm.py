@@ -30,8 +30,6 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-# -------------------- TABLES --------------------
-
 # Category Table
 class Category(Base):
     __tablename__ = "categories"
@@ -52,9 +50,10 @@ class Expense(Base):
     amount = Column(Float)
     date = Column(String)
 
+    #link expense to category
     category_id = Column(Integer, ForeignKey("categories.id"))
 
-    # Link expense to category
+    # to access category from expense 
     category = relationship("Category", back_populates="expenses")
 
 
@@ -94,14 +93,7 @@ def add_expense():
     date = input("Date (YYYY-MM-DD): ")
     category_id = int(input("Category ID: "))
 
-    session.add(
-        Expense(
-            title=title,
-            amount=amount,
-            date=date,
-            category_id=category_id
-        )
-    )
+    session.add(Expense(title=title, amount=amount, date=date, category_id=category_id))
     session.commit()
     print("Expense added")
 
@@ -111,9 +103,9 @@ def update_expense():
     expense = session.query(Expense).filter(Expense.id == eid).first()
 
     if expense:
-        expense.title = input("New title: ")
-        expense.amount = float(input("New amount: "))
-        expense.date = input("New date (YYYY-MM-DD): ")
+        expense.title = input("Updated title: ")
+        expense.amount = float(input("Updated amount: "))
+        expense.date = input("Updated date (YYYY-MM-DD): ")
         session.commit()
         print("Expense updated")
     else:
@@ -137,8 +129,8 @@ def search_by_date():
     expenses = session.query(Expense).filter(Expense.date == date).all()
 
     if expenses:
-        for e in expenses:
-            print(e.title, "→ ₹", e.amount)
+        for i in expenses:
+            print(i.title, "→ ₹", e.amount)
     else:
         print("No expenses found")
 
@@ -155,7 +147,7 @@ def category_analytics():
 
     print("\nCategory Wise Expense Report")
     for row in result:
-        print(row[0], "→ ₹", row[1])
+        print(row[0], "→", row[1])
 
 
 def set_budget():
