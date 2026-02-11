@@ -81,8 +81,6 @@ class Budget(Base):
 Base.metadata.create_all(engine)
 
 
-# -------------------- FUNCTIONS --------------------
-
 def add_category():
     name = input("Category name: ")
     session.add(Category(name=name))
@@ -145,8 +143,6 @@ def search_by_date():
         print("No expenses found")
 
 
-# -------------------- RAW SQL REPORT --------------------
-
 def category_analytics():
     sql = text("""
     SELECT categories.name, SUM(expenses.amount)
@@ -161,8 +157,6 @@ def category_analytics():
     for row in result:
         print(row[0], "→ ₹", row[1])
 
-
-# -------------------- BUDGET MODULE --------------------
 
 def set_budget():
     month = input("Month (YYYY-MM): ")
@@ -188,8 +182,6 @@ def budget_alert():
     else:
         print("Within budget")
 
-
-# -------------------- CLI MENU --------------------
 
 while True:
     print("""
